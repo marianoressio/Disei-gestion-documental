@@ -10,7 +10,7 @@ import {
   startCronJob,
   runManualCheck,
   getExpiryStats,
-} from "./cron-service.js";
+} from "./cron-service-postgres.js";
 import { testEmailConfiguration } from "./email-service.js";
 import { initializeTables, insertDefaultUsers, query } from "./database.js";
 
