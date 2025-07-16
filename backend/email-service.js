@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import config from "./config.js";
 
 // Configuración del transportador de email (Gmail SMTP)
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: config.emailUser,
