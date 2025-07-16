@@ -5,10 +5,10 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://tu-backend-url.railway.app/api/$1"
+      "destination": "https://disei-backend.onrender.com/api/$1"
     }
   ],
   "env": {
-    "VITE_API_URL": "https://tu-backend-url.railway.app"
+    "VITE_API_URL": "https://disei-backend.onrender.com"
   }
 }

@@ -25,6 +25,7 @@ import {
   LogOut,
   Archive,
 } from "lucide-react";
+import { apiUrls } from "./config.js";
 
 const DISEIDocumentSystem = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -95,7 +96,7 @@ const DISEIDocumentSystem = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await fetch("http://localhost:3001/employees");
+      const response = await fetch(apiUrls.employees());
       if (response.status === 401) {
         // Sesión expirada, cerrar sesión
         logout();
@@ -110,7 +111,7 @@ const DISEIDocumentSystem = () => {
 
   const fetchDocuments = async () => {
     try {
-      const response = await fetch("http://localhost:3001/documents");
+      const response = await fetch(apiUrls.documents());
       if (response.status === 401) {
         // Sesión expirada, cerrar sesión
         logout();
@@ -125,7 +126,7 @@ const DISEIDocumentSystem = () => {
   };
 
   const addEmployee = async (employeeData) => {
-    const response = await fetch("http://localhost:3001/employees", {
+    const response = await fetch(apiUrls.employees(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(employeeData),
@@ -136,7 +137,7 @@ const DISEIDocumentSystem = () => {
   };
 
   const updateEmployee = async (id, employeeData) => {
-    await fetch(`http://localhost:3001/employees/${id}`, {
+    await fetch(apiUrls.employee(id), {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(employeeData),
@@ -146,7 +147,7 @@ const DISEIDocumentSystem = () => {
   };
 
   const deleteEmployee = async (id) => {
-    await fetch(`http://localhost:3001/employees/${id}`, {
+    await fetch(apiUrls.employee(id), {
       method: "DELETE",
     });
     setEmployees(employees.filter((emp) => emp.id !== id));
@@ -164,7 +165,7 @@ const DISEIDocumentSystem = () => {
       formData.append("file", documentData.file);
     }
 
-    const response = await fetch("http://localhost:3001/documents", {
+    const response = await fetch(apiUrls.documents(), {
       method: "POST",
       body: formData,
     });
@@ -190,7 +191,7 @@ const DISEIDocumentSystem = () => {
       formData.append("fileName", documentData.fileName);
     }
 
-    const response = await fetch(`http://localhost:3001/documents/${id}`, {
+    const response = await fetch(apiUrls.document(id), {
       method: "PUT",
       body: formData,
     });
@@ -204,7 +205,7 @@ const DISEIDocumentSystem = () => {
   };
 
   const deleteDocument = async (id) => {
-    await fetch(`http://localhost:3001/documents/${id}`, {
+    await fetch(apiUrls.document(id), {
       method: "DELETE",
     });
     setDocuments(documents.filter((doc) => doc.id !== id));
@@ -304,7 +305,7 @@ const DISEIDocumentSystem = () => {
       return false;
     }
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch(apiUrls.login(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -1705,7 +1706,7 @@ const EmployeeDocumentModal = ({
                           </p>
                           <div className="flex space-x-2">
                             <a
-                              href={`http://localhost:3001/uploads/${doc.fileName}`}
+                              href={apiUrls.upload(doc.fileName)}
                               download
                               className="text-blue-600 hover:text-blue-800"
                               aria-label={`Descargar ${doc.fileName}`}
@@ -1762,7 +1763,7 @@ const EmployeeDocumentModal = ({
                         </div>
                         <div className="flex space-x-2">
                           <a
-                            href={`http://localhost:3001/uploads/${doc.fileName}`}
+                            href={apiUrls.upload(doc.fileName)}
                             download
                             className="text-blue-400 hover:text-blue-600"
                             aria-label={`Descargar ${doc.fileName}`}
