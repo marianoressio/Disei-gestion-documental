@@ -43,9 +43,9 @@ En Render, ve a "Environment" y agrega estas variables:
 ```env
 EMAIL_USER=comprasdisei@gmail.com
 EMAIL_PASS=zzhw phnq xhdp ywsa
-CORS_ORIGIN=https://tu-frontend-url.vercel.app
+CORS_ORIGIN=https://disei-gestion.vercel.app
 PORT=3001
-DB_PATH=./data/users.db
+DB_PATH=/tmp/users.db
 MAX_FILE_SIZE=5242880
 ALLOWED_FILE_TYPES=.pdf,.jpg,.jpeg
 BCRYPT_ROUNDS=10

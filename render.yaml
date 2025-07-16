@@ -12,7 +12,7 @@ services:
       - key: PORT
         value: 3001
       - key: DB_PATH
-        value: ./data/users.db
+        value: /tmp/users.db
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: ALLOWED_FILE_TYPES
