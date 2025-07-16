@@ -5,7 +5,11 @@ export const config = {
   nodeEnv: process.env.NODE_ENV || "development",
 
   // Base de datos
-  dbPath: process.env.DB_PATH || (process.env.NODE_ENV === 'production' ? "/tmp/users.db" : "./data/users.db"),
+  databaseUrl:
+    process.env.DATABASE_URL ||
+    (process.env.NODE_ENV === "production"
+      ? null
+      : "postgresql://localhost:5432/disei_db"),
 
   // Archivos
   uploadPath: process.env.UPLOAD_PATH || "./uploads",
@@ -64,7 +68,7 @@ export const config = {
 export default {
   port: process.env.PORT || 3001,
   corsOrigin: process.env.CORS_ORIGIN || "http://localhost:5173",
-  dbPath: process.env.DB_PATH || (process.env.NODE_ENV === 'production' ? "/tmp/users.db" : "./data/users.db"),
+  databaseUrl: process.env.DATABASE_URL || (process.env.NODE_ENV === 'production' ? null : "postgresql://localhost:5432/disei_db"),
   maxFileSize: parseInt(process.env.MAX_FILE_SIZE) || 5 * 1024 * 1024, // 5MB
   allowedFileTypes: process.env.ALLOWED_FILE_TYPES?.split(",") || [
     ".pdf",
