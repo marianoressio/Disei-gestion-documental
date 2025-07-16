@@ -1,0 +1,23 @@
+# Configuración de Email (Gmail SMTP)
+# Para usar Gmail, necesitas crear una "Contraseña de aplicación":
+# 1. Ve a tu cuenta de Google
+# 2. Seguridad > Verificación en 2 pasos > Contraseñas de aplicación
+# 3. Genera una contraseña para "Correo"
+# 4. Usa esa contraseña aquí (no tu contraseña normal de Gmail)
+
+EMAIL_USER=comprasdisei@gmail.com
+EMAIL_PASS=zzhw phnq xhdp ywsa
+
+# Configuración del servidor
+PORT=3001
+CORS_ORIGIN=http://localhost:5173
+
+# Configuración de la base de datos
+DB_PATH=./data/users.db
+
+# Configuración de archivos
+MAX_FILE_SIZE=5242880
+ALLOWED_FILE_TYPES=.pdf,.jpg,.jpeg
+
+# Configuración de bcrypt
+BCRYPT_ROUNDS=10 
