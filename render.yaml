@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: disei-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: DB_PATH
+        value: ./data/users.db
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: ALLOWED_FILE_TYPES
+        value: .pdf,.jpg,.jpeg
+      - key: BCRYPT_ROUNDS
+        value: 10
+    # Las siguientes variables deben configurarse manualmente en el dashboard de Render:
+    # - EMAIL_USER
+    # - EMAIL_PASS
+    # - CORS_ORIGIN

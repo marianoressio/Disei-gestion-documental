@@ -76,6 +76,10 @@ npm start
 
 El servidor se ejecutará en `http://localhost:3001`
 
+### 2. Para producción (Render)
+
+El backend está configurado para desplegarse en Render. Consulta `DEPLOYMENT.md` para instrucciones detalladas.
+
 ### 2. Iniciar el frontend
 
 ```bash
