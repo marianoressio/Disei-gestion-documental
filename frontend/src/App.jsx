@@ -449,23 +449,29 @@ const DISEIDocumentSystem = () => {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             <div className="flex items-center">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <div>
-                  <img src="/logo.png" alt="DISEI Logo" className="h-8" />
-                  <p className="text-sm text-gray-500">Gestión Documental</p>
+                  <img
+                    src="/logo.png"
+                    alt="DISEI Logo"
+                    className="h-6 sm:h-8"
+                  />
+                  <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">
+                    Gestión Documental
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="relative">
                 <button
-                  className="p-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  className="p-2 sm:p-3 text-gray-400 hover:text-gray-600 focus:outline-none"
                   aria-label="Ver notificaciones"
                   onClick={() => setShowNotifications((v) => !v)}
                 >
-                  <Bell className="w-6 h-6" />
+                  <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
                   {notifications.length > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                       {notifications.length}
@@ -475,22 +481,24 @@ const DISEIDocumentSystem = () => {
                 {showNotifications && (
                   <div
                     id="notification-dropdown"
-                    className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+                    className="absolute right-0 mt-2 w-72 sm:w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-96 overflow-hidden"
                   >
-                    <div className="p-4 border-b border-gray-100 font-semibold text-gray-800 flex items-center">
-                      <Bell className="w-5 h-5 text-yellow-500 mr-2" />{" "}
-                      Notificaciones
+                    <div className="p-3 sm:p-4 border-b border-gray-100 font-semibold text-gray-800 flex items-center">
+                      <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 mr-2" />
+                      <span className="text-sm sm:text-base">
+                        Notificaciones
+                      </span>
                     </div>
                     <div className="max-h-64 overflow-y-auto">
                       {notifications.length === 0 ? (
-                        <div className="p-4 text-gray-500 text-sm text-center">
+                        <div className="p-3 sm:p-4 text-gray-500 text-sm text-center">
                           No hay notificaciones
                         </div>
                       ) : (
                         notifications.map((notification) => (
                           <div
                             key={notification.id}
-                            className={`p-4 border-b last:border-b-0 text-sm ${
+                            className={`p-3 sm:p-4 border-b last:border-b-0 text-xs sm:text-sm ${
                               notification.type === "expired"
                                 ? "bg-red-50 text-red-800"
                                 : "bg-yellow-50 text-yellow-800"
@@ -504,16 +512,16 @@ const DISEIDocumentSystem = () => {
                   </div>
                 )}
               </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-700">
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <span className="text-xs sm:text-sm text-gray-700 hidden sm:block">
                   Hola, {currentUser?.name}
                 </span>
                 <button
                   onClick={logout}
-                  className="p-2 text-gray-400 hover:text-gray-600"
+                  className="p-2 sm:p-3 text-gray-400 hover:text-gray-600"
                   aria-label="Cerrar sesión"
                 >
-                  <LogOut className="w-5 h-5" />
+                  <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>
@@ -521,20 +529,22 @@ const DISEIDocumentSystem = () => {
         </div>
       </header>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
           <button
             onClick={() => setCurrentListView("all")}
-            className={`bg-white rounded-lg shadow p-6 hover:bg-gray-50 transition-colors ${
+            className={`bg-white rounded-lg shadow p-3 sm:p-6 hover:bg-gray-50 transition-colors ${
               currentListView === "all" ? "ring-2 ring-blue-500" : ""
             }`}
           >
             <div className="flex items-center">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Users className="w-6 h-6 text-blue-600" />
+              <div className="p-2 sm:p-3 bg-blue-100 rounded-lg">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Total Empleados</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-2 sm:ml-4">
+                <p className="text-xs sm:text-sm text-gray-500">
+                  Total Empleados
+                </p>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900">
                   {employees.length}
                 </p>
               </div>
@@ -542,17 +552,19 @@ const DISEIDocumentSystem = () => {
           </button>
           <button
             onClick={() => setCurrentListView("vigente")}
-            className={`bg-white rounded-lg shadow p-6 hover:bg-gray-50 transition-colors ${
+            className={`bg-white rounded-lg shadow p-3 sm:p-6 hover:bg-gray-50 transition-colors ${
               currentListView === "vigente" ? "ring-2 ring-green-500" : ""
             }`}
           >
             <div className="flex items-center">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <CheckCircle className="w-6 h-6 text-green-600" />
+              <div className="p-2 sm:p-3 bg-green-100 rounded-lg">
+                <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
               </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Docs. Vigentes</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-2 sm:ml-4">
+                <p className="text-xs sm:text-sm text-gray-500">
+                  Docs. Vigentes
+                </p>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900">
                   {
                     activeDocuments.filter(
                       (doc) =>
@@ -565,17 +577,17 @@ const DISEIDocumentSystem = () => {
           </button>
           <button
             onClick={() => setCurrentListView("por_vencer")}
-            className={`bg-white rounded-lg shadow p-6 hover:bg-gray-50 transition-colors ${
+            className={`bg-white rounded-lg shadow p-3 sm:p-6 hover:bg-gray-50 transition-colors ${
               currentListView === "por_vencer" ? "ring-2 ring-yellow-500" : ""
             }`}
           >
             <div className="flex items-center">
-              <div className="p-3 bg-yellow-100 rounded-lg">
-                <Clock className="w-6 h-6 text-yellow-600" />
+              <div className="p-2 sm:p-3 bg-yellow-100 rounded-lg">
+                <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" />
               </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Por Vencer</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-2 sm:ml-4">
+                <p className="text-xs sm:text-sm text-gray-500">Por Vencer</p>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900">
                   {
                     activeDocuments.filter(
                       (doc) =>
@@ -589,17 +601,17 @@ const DISEIDocumentSystem = () => {
           </button>
           <button
             onClick={() => setCurrentListView("vencido")}
-            className={`bg-white rounded-lg shadow p-6 hover:bg-gray-50 transition-colors ${
+            className={`bg-white rounded-lg shadow p-3 sm:p-6 hover:bg-gray-50 transition-colors ${
               currentListView === "vencido" ? "ring-2 ring-red-500" : ""
             }`}
           >
             <div className="flex items-center">
-              <div className="p-3 bg-red-100 rounded-lg">
-                <XCircle className="w-6 h-6 text-red-600" />
+              <div className="p-2 sm:p-3 bg-red-100 rounded-lg">
+                <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
               </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Vencidos</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-2 sm:ml-4">
+                <p className="text-xs sm:text-sm text-gray-500">Vencidos</p>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900">
                   {
                     activeDocuments.filter(
                       (doc) =>
@@ -638,8 +650,8 @@ const DISEIDocumentSystem = () => {
           </div>
         )}
         <div className="flex flex-col space-y-4 mb-6">
-          <div className="flex justify-between items-center">
-            <div className="relative w-full max-w-md">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <div className="relative w-full sm:max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="text"
@@ -652,14 +664,14 @@ const DISEIDocumentSystem = () => {
             </div>
             <button
               onClick={() => setShowAddEmployee(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center space-x-2 w-full sm:w-auto"
               aria-label="Agregar nuevo empleado"
             >
               <Plus className="w-4 h-4" />
               <span>Nuevo Empleado</span>
             </button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             <div>
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -754,51 +766,51 @@ const DISEIDocumentSystem = () => {
                     getDocumentStatus(doc.expiryDate).status === "por_vencer"
                 ).length;
                 return (
-                  <div key={employee.id} className="p-6">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center space-x-4">
-                        <div className="bg-blue-100 p-3 rounded-full">
-                          <User className="w-6 h-6 text-blue-600" />
+                  <div key={employee.id} className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start space-y-4 sm:space-y-0">
+                      <div className="flex items-start space-x-3 sm:space-x-4 w-full sm:w-auto">
+                        <div className="bg-blue-100 p-2 sm:p-3 rounded-full flex-shrink-0">
+                          <User className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                         </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-gray-900">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                             {employee.name}
                           </h4>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600">
                             DNI: {employee.dni}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600">
                             {employee.position} - {employee.sector} (
                             {employee.empresa})
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-xs sm:text-sm text-gray-500 truncate">
                             {employee.email}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-xs sm:text-sm text-gray-500">
                             Teléfono: {employee.phone}
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4">
-                        <div className="text-right">
-                          <p className="text-sm text-gray-500">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+                        <div className="text-left sm:text-right">
+                          <p className="text-xs sm:text-sm text-gray-500">
                             Documentos: {employeeDocs.length}
                           </p>
                           {expiredDocs > 0 && (
-                            <p className="text-sm text-red-600">
+                            <p className="text-xs sm:text-sm text-red-600">
                               🔴 {expiredDocs} vencidos
                             </p>
                           )}
                           {expiringSoon > 0 && (
-                            <p className="text-sm text-yellow-600">
+                            <p className="text-xs sm:text-sm text-yellow-600">
                               ⚠️ {expiringSoon} por vencer
                             </p>
                           )}
                         </div>
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-1 sm:space-x-2">
                           <button
                             onClick={() => setSelectedEmployee(employee)}
-                            className="bg-blue-600 text-white px-2 py-1 rounded-lg hover:bg-blue-700"
+                            className="bg-blue-600 text-white px-3 py-2 sm:px-2 sm:py-1 rounded-lg hover:bg-blue-700 transition-colors"
                             aria-label={`Ver documentos de ${employee.name}`}
                           >
                             <Eye className="w-4 h-4" />
@@ -808,14 +820,14 @@ const DISEIDocumentSystem = () => {
                               setSelectedEmployeeToEdit(employee);
                               setShowEditEmployee(true);
                             }}
-                            className="bg-green-600 text-white px-2 py-1 rounded-lg hover:bg-green-700"
+                            className="bg-green-600 text-white px-3 py-2 sm:px-2 sm:py-1 rounded-lg hover:bg-green-700 transition-colors"
                             aria-label={`Editar ${employee.name}`}
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => deleteEmployee(employee.id)}
-                            className="bg-red-600 text-white px-2 py-1 rounded-lg hover:bg-red-700"
+                            className="bg-red-600 text-white px-3 py-2 sm:px-2 sm:py-1 rounded-lg hover:bg-red-700 transition-colors"
                             aria-label={`Eliminar ${employee.name}`}
                           >
                             <Trash2 className="w-4 h-4" />
