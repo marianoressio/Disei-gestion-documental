@@ -1348,13 +1348,19 @@ const AddDocumentForm = ({ employee, documents, onSubmit, onClose }) => {
   const [issueDate, setIssueDate] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (documents.some((doc) => doc.type === type)) {
-      alert(`Ya existe un documento de tipo "${type}" para este empleado.`);
+    if (!type) {
+      setError("Debe seleccionar el tipo de documento.");
       return;
     }
+    if (documents.some((doc) => doc.type === type)) {
+      setError(`Ya existe un documento de tipo "${type}" para este empleado.`);
+      return;
+    }
+    setError("");
     onSubmit({ employeeId: employee.id, type, issueDate, expiryDate, file });
   };
 
@@ -1388,6 +1394,9 @@ const AddDocumentForm = ({ employee, documents, onSubmit, onClose }) => {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               required
             >
+              <option value="" disabled>
+                Seleccione tipo de documento
+              </option>
               <option value="Estudio Médico">Estudio Médico</option>
               <option value="Habilitación TCT">Habilitación TCT</option>
               <option value="Carnet de conducir">Carnet de conducir</option>
@@ -1447,6 +1456,9 @@ const AddDocumentForm = ({ employee, documents, onSubmit, onClose }) => {
               required
             />
           </div>
+          {error && (
+            <div className="text-red-600 text-sm text-center">{error}</div>
+          )}
           <div className="flex justify-end space-x-2">
             <button
               type="button"
