@@ -171,8 +171,9 @@ const DISEIDocumentSystem = () => {
     });
     const data = await response.json();
     if (response.ok) {
-      // Recargar todos los documentos desde el servidor
-      fetchDocuments();
+      // Recargar empleados y documentos desde el servidor
+      await fetchEmployees();
+      await fetchDocuments();
       setShowAddDocument(false);
     } else {
       alert("Error al subir el documento: " + data.error);
