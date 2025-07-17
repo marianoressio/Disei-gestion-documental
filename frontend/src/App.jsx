@@ -163,6 +163,13 @@ const DISEIDocumentSystem = () => {
   };
 
   const deleteEmployee = async (id) => {
+    if (
+      !window.confirm(
+        "¿Está seguro de que desea eliminar este empleado? Esta acción no se puede deshacer y eliminará todos sus documentos."
+      )
+    ) {
+      return;
+    }
     await fetch(apiUrls.employee(id), {
       method: "DELETE",
     });
@@ -222,6 +229,13 @@ const DISEIDocumentSystem = () => {
   };
 
   const deleteDocument = async (id) => {
+    if (
+      !window.confirm(
+        "¿Está seguro de que desea eliminar este documento? Esta acción no se puede deshacer."
+      )
+    ) {
+      return;
+    }
     await fetch(apiUrls.document(id), {
       method: "DELETE",
     });
@@ -244,7 +258,9 @@ const DISEIDocumentSystem = () => {
           return {
             id: `expired-${doc.id}`,
             type: "expired",
-            message: `${doc.type} de ${employee.name} venció el ${formatDate(doc.expiryDate)}`,
+            message: `${doc.type} de ${employee.name} venció el ${formatDate(
+              doc.expiryDate
+            )}`,
             priority: "high",
             date: now.toISOString(),
           };
@@ -252,7 +268,9 @@ const DISEIDocumentSystem = () => {
           return {
             id: `warning-${doc.id}`,
             type: "warning",
-            message: `${doc.type} de ${employee.name} vence el ${formatDate(doc.expiryDate)}`,
+            message: `${doc.type} de ${employee.name} vence el ${formatDate(
+              doc.expiryDate
+            )}`,
             priority: "medium",
             date: now.toISOString(),
           };
