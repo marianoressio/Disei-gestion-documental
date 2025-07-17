@@ -13,7 +13,7 @@ export const config = {
 
   // Archivos
   uploadPath: process.env.UPLOAD_PATH || "./uploads",
-  maxFileSize: parseInt(process.env.MAX_FILE_SIZE) || 5 * 1024 * 1024, // 5MB
+  maxFileSize: parseInt(process.env.MAX_FILE_SIZE) || 10 * 1024 * 1024, // 10MB
   allowedFileTypes: (process.env.ALLOWED_FILE_TYPES || "pdf,jpg,jpeg").split(
     ","
   ),
@@ -68,8 +68,12 @@ export const config = {
 export default {
   port: process.env.PORT || 3001,
   corsOrigin: process.env.CORS_ORIGIN || "http://localhost:5173",
-  databaseUrl: process.env.DATABASE_URL || (process.env.NODE_ENV === 'production' ? null : "postgresql://localhost:5432/disei_db"),
-  maxFileSize: parseInt(process.env.MAX_FILE_SIZE) || 5 * 1024 * 1024, // 5MB
+  databaseUrl:
+    process.env.DATABASE_URL ||
+    (process.env.NODE_ENV === "production"
+      ? null
+      : "postgresql://localhost:5432/disei_db"),
+  maxFileSize: parseInt(process.env.MAX_FILE_SIZE) || 10 * 1024 * 1024, // 10MB
   allowedFileTypes: process.env.ALLOWED_FILE_TYPES?.split(",") || [
     ".pdf",
     ".jpg",
