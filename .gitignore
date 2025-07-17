@@ -101,4 +101,9 @@ Thumbs.db
 
 # Temporary files
 *.tmp
-*.temp 
+*.temp
+
+# User manuals (contain sensitive information)
+*MANUAL*.md
+*manual*.md
+*Manual*.md 
