@@ -348,7 +348,7 @@ Visualiza un archivo en el navegador.
 
 ## Límites
 
-- Tamaño máximo de archivo: 5MB
+- Tamaño máximo de archivo: 10MB
 - Tipos de archivo: PDF, JPG, JPEG
 
 ## Estados de Documentos

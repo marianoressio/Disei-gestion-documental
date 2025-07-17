@@ -206,7 +206,7 @@ El sistema utiliza configuraciones por defecto, pero puedes modificar:
 
 - Puerto del servidor: `3001`
 - Puerto del frontend: `5173`
-- Límite de archivo: `5MB`
+- Límite de archivo: `10MB`
 - Tipos de archivo permitidos: `PDF, JPG`
 
 ### Base de Datos

@@ -16,7 +16,7 @@ services:
           name: disei-postgres
           property: connectionString
       - key: MAX_FILE_SIZE
-        value: 5242880
+        value: 10485760
       - key: ALLOWED_FILE_TYPES
         value: .pdf,.jpg,.jpeg
       - key: BCRYPT_ROUNDS
@@ -25,4 +25,3 @@ services:
     # - EMAIL_USER
     # - EMAIL_PASS
     # - CORS_ORIGIN
- 
