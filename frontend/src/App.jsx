@@ -27,6 +27,12 @@ import {
 } from "lucide-react";
 import { apiUrls } from "./config.js";
 
+// Utilidad para formatear fecha a YYYY-MM-DD
+function formatDate(dateString) {
+  if (!dateString) return "";
+  return dateString.split("T")[0];
+}
+
 const DISEIDocumentSystem = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentView, setCurrentView] = useState("login");
@@ -1732,7 +1738,7 @@ const EmployeeDocumentModal = ({
                             </span>
                             <p className="text-sm text-gray-600">
                               <Calendar className="w-4 h-4 inline mr-1" />{" "}
-                              Vence: {doc.expiryDate}
+                              Vence: {formatDate(doc.expiryDate)}
                             </p>
                           </div>
                           <span
@@ -1793,7 +1799,8 @@ const EmployeeDocumentModal = ({
                         <div className="flex items-center">
                           <Archive className="w-4 h-4 text-gray-400 mr-2" />
                           <span className="font-medium text-gray-700">
-                            {doc.issueDate} - {doc.expiryDate}
+                            {formatDate(doc.issueDate)} -{" "}
+                            {formatDate(doc.expiryDate)}
                           </span>
                           <span className="ml-2 text-xs text-gray-500">
                             {doc.fileName}
