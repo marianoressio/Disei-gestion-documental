@@ -244,7 +244,7 @@ const DISEIDocumentSystem = () => {
           return {
             id: `expired-${doc.id}`,
             type: "expired",
-            message: `${doc.type} de ${employee.name} venció el ${doc.expiryDate}`,
+            message: `${doc.type} de ${employee.name} venció el ${formatDate(doc.expiryDate)}`,
             priority: "high",
             date: now.toISOString(),
           };
@@ -252,7 +252,7 @@ const DISEIDocumentSystem = () => {
           return {
             id: `warning-${doc.id}`,
             type: "warning",
-            message: `${doc.type} de ${employee.name} vence el ${doc.expiryDate}`,
+            message: `${doc.type} de ${employee.name} vence el ${formatDate(doc.expiryDate)}`,
             priority: "medium",
             date: now.toISOString(),
           };
