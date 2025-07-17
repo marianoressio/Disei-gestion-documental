@@ -118,7 +118,17 @@ const DISEIDocumentSystem = () => {
         return;
       }
       const data = await response.json();
-      setDocuments(Array.isArray(data) ? data : []);
+      // Mapear campos del backend a los esperados por el frontend
+      const mapped = Array.isArray(data)
+        ? data.map((doc) => ({
+            ...doc,
+            employeeId: doc.employeeId ?? doc.employeeid,
+            issueDate: doc.issueDate ?? doc.issuedate,
+            expiryDate: doc.expiryDate ?? doc.expirydate,
+            fileName: doc.fileName ?? doc.filename,
+          }))
+        : [];
+      setDocuments(mapped);
     } catch (error) {
       console.error("Error al cargar documentos:", error);
       setDocuments([]);
