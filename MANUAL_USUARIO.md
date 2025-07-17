@@ -258,7 +258,7 @@ https://disei-gestion.vercel.app
 ### **Para problemas técnicos:**
 
 - **Email:** marianoressio.dpp@gmail.com
-- **WhatsApp:** [Tu número de WhatsApp]
+- **WhatsApp:** +54 9 264 585-9031
 
 ### **Horarios de soporte:**
 
