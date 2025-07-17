@@ -351,12 +351,18 @@ const DISEIDocumentSystem = () => {
 
   // Solo documentos no archivados para lógica principal
   const activeDocuments = (Array.isArray(documents) ? documents : []).filter(
-    (d) => !d.archived
+    (d) =>
+      d.archived === 0 ||
+      d.archived === false ||
+      d.archived === "0" ||
+      d.archived === undefined
   );
 
   const getEmployeeDocuments = useCallback(
     (employeeId) =>
-      activeDocuments.filter((doc) => doc.employeeId === employeeId),
+      activeDocuments.filter(
+        (doc) => String(doc.employeeId) === String(employeeId)
+      ),
     [activeDocuments]
   );
 
