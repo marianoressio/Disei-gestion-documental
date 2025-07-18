@@ -451,4 +451,8 @@ async function startServer() {
   }
 }
 
+app.get("/api/ping", (req, res) => {
+  res.status(200).send("ok");
+});
+
 startServer();

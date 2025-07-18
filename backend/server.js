@@ -886,3 +886,7 @@ app.get("/api/expiry-stats", async (req, res) => {
     res.status(500).json({ error: "Error al obtener estadísticas" });
   }
 });
+
+app.get("/api/ping", (req, res) => {
+  res.status(200).send("ok");
+});
