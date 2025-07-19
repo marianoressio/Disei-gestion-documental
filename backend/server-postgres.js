@@ -307,7 +307,8 @@ app.get("/documents/:id", async (req, res) => {
 });
 
 // Endpoint para actualizar documento
-app.put("/documents/:id", async (req, res) => {
+app.put("/documents/:id", upload, async (req, res) => {
+  const documentId = parseInt(req.params.id);
   const { employeeId, type, issueDate, expiryDate } = req.body;
 
   if (!employeeId || !type || !issueDate || !expiryDate) {
@@ -315,18 +316,52 @@ app.put("/documents/:id", async (req, res) => {
   }
 
   try {
-    const status = calculateDocumentStatus(issueDate, expiryDate);
-
-    const result = await query(
-      "UPDATE documents SET employeeId = $1, type = $2, issueDate = $3, expiryDate = $4, status = $5 WHERE id = $6 RETURNING *",
-      [employeeId, type, issueDate, expiryDate, status, req.params.id]
+    // Obtener el documento existente
+    const existingResult = await query(
+      "SELECT * FROM documents WHERE id = $1",
+      [documentId]
     );
-
-    if (result.rows.length === 0) {
+    if (existingResult.rows.length === 0) {
       return res.status(404).json({ error: "Documento no encontrado" });
     }
+    const existingDoc = existingResult.rows[0];
 
-    res.json(result.rows[0]);
+    // Determinar qué archivo usar
+    let fileName = existingDoc.filename;
+    let oldFileName = null;
+    if (req.file) {
+      fileName = req.file.filename;
+      oldFileName = existingDoc.filename;
+    }
+
+    const status = calculateDocumentStatus(issueDate, expiryDate);
+
+    // Archivar el documento anterior
+    await query("UPDATE documents SET archived = true WHERE id = $1", [
+      documentId,
+    ]);
+
+    // Insertar el nuevo documento como no archivado
+    const insertResult = await query(
+      "INSERT INTO documents (employeeId, type, issueDate, expiryDate, status, fileName, archived) VALUES ($1, $2, $3, $4, $5, $6, false) RETURNING *",
+      [employeeId, type, issueDate, expiryDate, status, fileName]
+    );
+
+    // Eliminar archivo anterior si se subió uno nuevo
+    if (oldFileName && oldFileName !== fileName) {
+      const fs = require("fs");
+      const path = require("path");
+      const oldFilePath = path.join(__dirname, "uploads", oldFileName);
+      fs.unlink(oldFilePath, (unlinkErr) => {
+        if (unlinkErr) {
+          console.warn("No se pudo eliminar el archivo anterior:", unlinkErr);
+        } else {
+          console.log("Archivo anterior eliminado:", oldFileName);
+        }
+      });
+    }
+
+    res.json(insertResult.rows[0]);
   } catch (error) {
     console.error("Error al actualizar documento:", error);
     res.status(500).json({ error: error.message });
