@@ -349,8 +349,6 @@ app.put("/documents/:id", upload, async (req, res) => {
 
     // Eliminar archivo anterior si se subió uno nuevo
     if (oldFileName && oldFileName !== fileName) {
-      const fs = require("fs");
-      const path = require("path");
       const oldFilePath = path.join(__dirname, "uploads", oldFileName);
       fs.unlink(oldFilePath, (unlinkErr) => {
         if (unlinkErr) {
