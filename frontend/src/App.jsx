@@ -56,6 +56,7 @@ const DISEIDocumentSystem = () => {
   const [selectedDocumentToEdit, setSelectedDocumentToEdit] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isAddingEmployee, setIsAddingEmployee] = useState(false);
 
   const empresas = ["DISEI", "CONELCI"];
   const sectores = [
@@ -142,6 +143,7 @@ const DISEIDocumentSystem = () => {
   };
 
   const addEmployee = async (employeeData) => {
+    setIsAddingEmployee(true);
     const response = await fetch(apiUrls.employees(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -150,6 +152,7 @@ const DISEIDocumentSystem = () => {
     const data = await response.json();
     setEmployees([...employees, data]);
     setShowAddEmployee(false);
+    setIsAddingEmployee(false);
   };
 
   const updateEmployee = async (id, employeeData) => {
@@ -903,6 +906,7 @@ const DISEIDocumentSystem = () => {
         <AddEmployeeForm
           onSubmit={addEmployee}
           onClose={() => setShowAddEmployee(false)}
+          isAddingEmployee={isAddingEmployee}
         />
       )}
       {showEditEmployee && selectedEmployeeToEdit && (
@@ -1013,7 +1017,7 @@ const LoginForm = ({ onLogin }) => {
   );
 };
 
-const AddEmployeeForm = ({ onSubmit, onClose }) => {
+const AddEmployeeForm = ({ onSubmit, onClose, isAddingEmployee }) => {
   const [name, setName] = useState("");
   const [dni, setDni] = useState("");
   const [position, setPosition] = useState("");
@@ -1193,9 +1197,35 @@ const AddEmployeeForm = ({ onSubmit, onClose }) => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center"
+              disabled={isAddingEmployee}
             >
-              Agregar
+              {isAddingEmployee ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    ></path>
+                  </svg>
+                  Agregando...
+                </>
+              ) : (
+                "Agregar"
+              )}
             </button>
           </div>
         </form>
