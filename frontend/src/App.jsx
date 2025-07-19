@@ -58,6 +58,7 @@ const DISEIDocumentSystem = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [isAddingEmployee, setIsAddingEmployee] = useState(false);
   const [isSavingDocument, setIsSavingDocument] = useState(false);
+  const [isSavingEmployee, setIsSavingEmployee] = useState(false);
 
   const empresas = ["DISEI", "CONELCI"];
   const sectores = [
@@ -157,6 +158,7 @@ const DISEIDocumentSystem = () => {
   };
 
   const updateEmployee = async (id, employeeData) => {
+    setIsSavingEmployee(true);
     await fetch(apiUrls.employee(id), {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -164,6 +166,7 @@ const DISEIDocumentSystem = () => {
     });
     fetchEmployees();
     setShowEditEmployee(false);
+    setIsSavingEmployee(false);
   };
 
   const deleteEmployee = async (id) => {
@@ -917,6 +920,7 @@ const DISEIDocumentSystem = () => {
           employee={selectedEmployeeToEdit}
           onSubmit={(data) => updateEmployee(selectedEmployeeToEdit.id, data)}
           onClose={() => setShowEditEmployee(false)}
+          isSavingEmployee={isSavingEmployee}
         />
       )}
       {showAddDocument && selectedEmployee && (
@@ -1238,7 +1242,12 @@ const AddEmployeeForm = ({ onSubmit, onClose, isAddingEmployee }) => {
   );
 };
 
-const EditEmployeeForm = ({ employee, onSubmit, onClose }) => {
+const EditEmployeeForm = ({
+  employee,
+  onSubmit,
+  onClose,
+  isSavingEmployee,
+}) => {
   const [name, setName] = useState(employee.name);
   const [dni, setDni] = useState(employee.dni);
   const [position, setPosition] = useState(employee.position);
@@ -1402,14 +1411,41 @@ const EditEmployeeForm = ({ employee, onSubmit, onClose }) => {
               type="button"
               onClick={onClose}
               className="px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100"
+              disabled={isSavingEmployee}
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center"
+              disabled={isSavingEmployee}
             >
-              Guardar
+              {isSavingEmployee ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    ></path>
+                  </svg>
+                  Guardando...
+                </>
+              ) : (
+                "Guardar"
+              )}
             </button>
           </div>
         </form>
