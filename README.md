@@ -233,7 +233,10 @@ La base de datos SQLite se crea automáticamente en `backend/data/users.db`
 
 ## 📞 Soporte
 
-Para reportar problemas o solicitar nuevas características, contacta al equipo de desarrollo.
+
+• Mariano Ressio Barea
+• marianoressio@gmail.com
+
 
 ## 📄 Licencia
 
