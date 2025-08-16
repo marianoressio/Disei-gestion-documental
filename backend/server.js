@@ -1,4 +1,5 @@
 import express from "express";
+import almacenApp from "./almacen/almacen.js";
 import bcrypt from "bcrypt";
 import sqlite3 from "sqlite3";
 import cors from "cors";
@@ -28,6 +29,8 @@ const app = express();
 const port = config.port;
 
 app.use(express.json());
+// Integración del módulo de almacén
+app.use("/almacen", almacenApp);
 app.use(
   cors({
     origin: config.corsOrigin,
