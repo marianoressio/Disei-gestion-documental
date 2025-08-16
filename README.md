@@ -231,12 +231,10 @@ La base de datos SQLite se crea automáticamente en `backend/data/users.db`
 1. Ejecutar `npm run init-db` en el backend
 2. Verificar que la carpeta `data` exista
 
-## 📞 Soporte
-
+## Autor
 
 - Mariano Ressio Barea
 - marianoressio@gmail.com
-
 
 ## 📄 Licencia
 
